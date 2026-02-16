@@ -1,0 +1,10 @@
+{
+  "name": "node-docker-jenkins-app",
+  "version": "1.0.0",
+  "description": "Node.js app built with Docker using Jenkins",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {}
+}
