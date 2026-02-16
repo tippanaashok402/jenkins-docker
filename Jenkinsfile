@@ -16,29 +16,20 @@ pipeline {
 
         stage('Verify Tools') {
             steps {
-                sh 'node -v'
-                sh 'docker -v'
+                bat 'node -v'
+                bat 'docker -v'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
-        }
-
-        stage('Run Container (Optional)') {
-            steps {
-                sh '''
-                docker rm -f node-docker-app || true
-                docker run -d -p 3000:3000 --name node-docker-app node-docker-app:latest
-                '''
+                bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
             }
         }
     }
@@ -49,9 +40,6 @@ pipeline {
         }
         failure {
             echo "❌ Jenkins build failed"
-        }
-        cleanup {
-            sh 'docker ps -a'
         }
     }
 }
