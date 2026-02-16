@@ -16,7 +16,6 @@ pipeline {
 
         stage('Verify Tools') {
             steps {
-                bat 'node -v'
                 bat 'docker -v'
             }
         }
