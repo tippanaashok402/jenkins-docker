@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "node-docker-app"
-        APP_VERSION = "1.0"
+        APP_VERSION = "1.0.0"
     }
 
     stages {
