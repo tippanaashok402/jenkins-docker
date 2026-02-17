@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "node-docker-app"
-        IMAGE_TAG  = "latest"
+        IMAGE_TAG  = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -22,7 +22,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
+                bat """
+                    docker build -t %IMAGE_NAME%:%IMAGE_TAG% .
+                    docker tag %IMAGE_NAME%:%IMAGE_TAG% %IMAGE_NAME%:latest
+                """
             }
         }
     }
@@ -30,6 +33,9 @@ pipeline {
     post {
         success {
             echo "✅ Docker image built successfully"
+            echo "📦 Image versions:"
+            echo "   - %IMAGE_NAME%:%IMAGE_TAG%"
+            echo "   - %IMAGE_NAME%:latest"
         }
         failure {
             echo "❌ Jenkins build failed"
